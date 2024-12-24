@@ -4,6 +4,8 @@
 
 Demo: https://bertt.github.io/roofer_demo/3_bloc_be/
 
+![image](https://github.com/user-attachments/assets/0c31f739-a006-46bf-8d31-a6d95d2bc169)
+
 1/2] Barcelonnette
 
 Demo: https://bertt.github.io/roofer_demo/2_barcelonnette/
