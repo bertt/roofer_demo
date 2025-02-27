@@ -4,7 +4,7 @@
 
 Demo: https://bertt.github.io/roofer_demo/5_paris/
 
-![image](https://github.com/user-attachments/assets/413c5283-9c9c-479a-9e82-cbc2128d75da)
+![image](https://github.com/user-attachments/assets/8ff290a8-1738-4950-8c24-555d6ee50ab5)
 
 4] Sisteron
 
