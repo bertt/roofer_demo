@@ -55,7 +55,20 @@ viewer.scene.preRender.addEventListener(function (scene, time) {
 
 const tileset = await Cesium.Cesium3DTileset.fromUrl(
       "tileset.json"
-    );  
+    );
+    
+    tileset.style = new Cesium.Cesium3DTileStyle({
+      color: {
+        conditions: [
+        ["Number(${feature['hauteur']}) < 10", "color('#0000FF')"],
+        ["Number(${feature['hauteur']}) >= 10 && Number(${feature['hauteur']}) < 25 ", "color('#007FFF')"],
+        ["Number(${feature['hauteur']}) >= 25 && Number(${feature['hauteur']}) < 50 ", "color('#00FFFF')"],
+        ["Number(${feature['hauteur']}) >= 50 && Number(${feature['hauteur']}) < 100 ", "color('#FF7F00')"],
+        ["Number(${feature['hauteur']}) >= 100", "color('#FF0000')"],
+        ]
+      }
+    }
+  );
 
 // Pas de transformatie toe
 // tileset.modelMatrix = transform;
