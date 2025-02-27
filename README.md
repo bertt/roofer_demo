@@ -1,6 +1,6 @@
 # roofer_demo
 
-5] Paris 
+5] Paris
 
 Demo: https://bertt.github.io/roofer_demo/5_paris/
 
