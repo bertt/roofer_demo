@@ -59,7 +59,9 @@ const tileset = await Cesium.Cesium3DTileset.fromUrl(
 
 // Pas de transformatie toe
 // tileset.modelMatrix = transform;
-    viewer.scene.postProcessStages.fxaa.enabled = false;
+    // viewer.scene.postProcessStages.fxaa.enabled = false;
+    viewer.scene.requestRenderMode = true;
+
     viewer.scene.primitives.add(tileset);
     viewer.scene.globe.depthTestAgainstTerrain = true;
     viewer.scene.globe.enableLighting = true;
