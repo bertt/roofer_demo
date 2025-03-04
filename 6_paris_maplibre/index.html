@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PMTiles source and protocol</title>
+    <meta property="og:description" content="Uses the PMTiles plugin and protocol to present a map." />
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@5.2.0/dist/maplibre-gl.css' />
+    <script src='https://unpkg.com/maplibre-gl@5.2.0/dist/maplibre-gl.js'></script>
+    <script src="https://unpkg.com/pmtiles@3.2.0/dist/pmtiles.js"></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        html, body, #map { height: 100%; }
+        #info { position: absolute; background: white; padding: 10px; border-radius: 5px; bottom: 10px; left: 10px; }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<div id="info">Klik op een polygoon voor details</div>
+<script>
+
+    // add the PMTiles plugin to the maplibregl global.
+    const protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol('pmtiles', protocol.tile);
+
+    const PMTILES_URL = 'batiments.pmtiles';
+
+    const p = new pmtiles.PMTiles(PMTILES_URL);
+
+    // this is so we share one instance across the JS code and the map renderer
+    protocol.add(p);
+
+    // we first fetch the header so we can get the center lon, lat of the map.
+    p.getHeader().then(h => {
+        const map = new maplibregl.Map({
+            container: 'map',
+            zoom: h.maxZoom - 2,
+            center: [h.centerLon, h.centerLat],
+            style: {
+                version: 8,
+                sources: {
+               	   "osm": {
+                        type: "raster",
+                        tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                        tileSize: 256,
+                        attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+                    },
+                    'example_source': {
+                        type: 'vector',
+                        url: `pmtiles://${PMTILES_URL}`,
+                        attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
+                    }
+                },
+                layers: [{
+                    id: "osm-layer",
+                    type: "raster",
+                    source: "osm",
+                    minzoom: 0,
+                    maxzoom: 19
+                },
+                    {
+                        'id': 'buildings',
+                        'source': 'example_source',
+                        'source-layer': 'output',
+                        'type': 'fill-extrusion',
+                        'paint': {
+                    "fill-extrusion-color": [
+                        "case",
+                        ["<", ["to-number", ["get", "hauteur"]], 10], "#007cbf",  // Blauw voor lage gebouwen (<10m)
+                        ["<", ["to-number", ["get", "hauteur"]], 30], "#ffa500", // Oranje voor middelhoge gebouwen (10-30m)
+                        "#ff0000" // Rood voor hoge gebouwen (≥30m)
+                    ],
+			   "fill-extrusion-opacity": 0.6,
+ 			    'fill-extrusion-height': ["to-number",['get', 'hauteur']],
+                    	    "fill-extrusion-base": 0
+                        }
+                    }
+         	]
+            }
+        });
+  	map.on('click', 'buildings', (e) => {
+            const features = e.features;
+            if (features.length > 0) {
+                document.getElementById('info').innerText = JSON.stringify(features[0].properties, null, 2);
+            }
+        });
+
+        map.on('mouseenter', 'buildings', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.on('mouseleave', 'buildings', () => {
+            map.getCanvas().style.cursor = '';
+        });
+    });
+</script>
+</body>
+</html>
