@@ -1,5 +1,12 @@
 # roofer_demo
 
+6] Paris - MapLibre
+
+Demo: https://bertt.github.io/roofer_demo/6_paris_maplibre/
+
+![image](https://github.com/user-attachments/assets/4e40f9ed-95fd-4d27-9180-d6021e70f994)
+
+
 5] Paris
 
 Demo: https://bertt.github.io/roofer_demo/5_paris/
