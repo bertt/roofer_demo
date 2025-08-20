@@ -4,6 +4,13 @@
 
 Demo: https://bertt.github.io/roofer_demo/7_antwerpen/
 
+6] Paris - MapLibre
+
+Demo: https://bertt.github.io/roofer_demo/6_paris_maplibre/
+
+![image](https://github.com/user-attachments/assets/4e40f9ed-95fd-4d27-9180-d6021e70f994)
+
+
 5] Paris
 
 Demo: https://bertt.github.io/roofer_demo/5_paris/
@@ -33,6 +40,4 @@ Demo: https://bertt.github.io/roofer_demo/2_barcelonnette/
 Demo: https://bertt.github.io/roofer_demo/0_hello_world/
 
 ![image](https://github.com/user-attachments/assets/ac086b2b-baed-470a-bb51-5d4eb4bece54)
-
-
 
